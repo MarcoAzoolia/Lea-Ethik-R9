@@ -5,6 +5,7 @@ import { BottomNav } from './components/layout/BottomNav';
 import { Toast } from './components/ui/Toast';
 import { WelcomeScreen } from './components/screens/WelcomeScreen';
 import { DashboardScreen } from './components/screens/DashboardScreen';
+import { LearnScreen } from './components/screens/LearnScreen';
 import { QuizConfigScreen } from './components/screens/QuizConfigScreen';
 import { QuizScreen } from './components/screens/QuizScreen';
 import { ResultScreen } from './components/screens/ResultScreen';
@@ -56,8 +57,16 @@ function App() {
     setScreen({ type: 'quizConfig', areaId });
   }, []);
 
+  const handleLearnArea = useCallback((areaId: AreaId) => {
+    setScreen({ type: 'learn', areaId });
+  }, []);
+
   const handleStartQuiz = useCallback((areaId: AreaId, questionCount: number, timePerQuestion: number) => {
     setScreen({ type: 'quiz', areaId, questionCount, timePerQuestion });
+  }, []);
+
+  const handleLearnToQuiz = useCallback((areaId: AreaId) => {
+    setScreen({ type: 'quizConfig', areaId });
   }, []);
 
   const checkAchievements = useCallback((updatedProgress: typeof progress) => {
@@ -96,16 +105,14 @@ function App() {
   }, []);
 
   const handleBack = useCallback(() => {
-    if (screen.type === 'quizConfig') {
-      setScreen({ type: 'dashboard' });
-    } else if (screen.type === 'result') {
+    if (screen.type === 'quizConfig' || screen.type === 'result' || screen.type === 'learn') {
       setScreen({ type: 'dashboard' });
     }
   }, [screen]);
 
   const showHeader = screen.type !== 'welcome';
   const showNav = screen.type === 'dashboard' || screen.type === 'progress';
-  const showBack = screen.type === 'quizConfig' || screen.type === 'result';
+  const showBack = screen.type === 'quizConfig' || screen.type === 'result' || screen.type === 'learn';
 
   const headerTitle = screen.type === 'quizConfig'
     ? 'Quiz konfigurieren'
@@ -115,10 +122,12 @@ function App() {
         ? 'Ergebnis'
         : screen.type === 'progress'
           ? 'Fortschritt'
-          : 'Ethik R9';
+          : screen.type === 'learn'
+            ? 'Lernmodus'
+            : 'Ethik R9';
 
   return (
-    <div className="min-h-[100dvh] bg-bg text-text">
+    <div className="min-h-dvh bg-bg text-text">
       {showHeader && (
         <Header
           title={headerTitle}
@@ -133,7 +142,7 @@ function App() {
       <main>
         <AnimatePresence mode="wait">
           <motion.div
-            key={screen.type + (screen.type === 'quizConfig' ? screen.areaId : '')}
+            key={screen.type + (screen.type === 'quizConfig' ? screen.areaId : screen.type === 'learn' ? screen.areaId : '')}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -145,10 +154,18 @@ function App() {
             {screen.type === 'dashboard' && (
               <DashboardScreen
                 onSelectArea={handleSelectArea}
+                onLearnArea={handleLearnArea}
                 getBestGrade={getBestGrade}
                 getAreaAttemptCount={getAreaAttemptCount}
                 streak={getCurrentStreak()}
                 totalXP={progress.totalXP}
+              />
+            )}
+            {screen.type === 'learn' && (
+              <LearnScreen
+                areaId={screen.areaId}
+                onBack={handleHome}
+                onStartQuiz={handleLearnToQuiz}
               />
             )}
             {screen.type === 'quizConfig' && (

@@ -392,4 +392,36 @@ export const questionsLB1: Question[] = [
     difficulty: 'leicht',
     topic: 'Hilfsorganisationen',
   },
+  {
+    id: 'lb1-q21',
+    areaId: 'lb1',
+    question:
+      'Welche Arten von Konflikten lassen sich unterscheiden?',
+    answers: [
+      {
+        id: 'a',
+        text: 'Konflikte im persoenlichen Umfeld (z. B. Scheidung, Streit unter Freunden) und politische Konflikte (z. B. zwischen Staaten oder Bevoelkerungsgruppen).',
+        isCorrect: true,
+      },
+      {
+        id: 'b',
+        text: 'Es gibt nur eine Art von Konflikt: den bewaffneten Krieg.',
+        isCorrect: false,
+      },
+      {
+        id: 'c',
+        text: 'Konflikte gibt es nur in der Schule, nicht in der Familie oder Politik.',
+        isCorrect: false,
+      },
+      {
+        id: 'd',
+        text: 'Konflikte sind immer negativ und muessen vermieden werden.',
+        isCorrect: false,
+      },
+    ],
+    explanation:
+      'Konflikte sind etwas Grundlegendes im Zusammenleben. Man unterscheidet Konflikte im persoenlichen Umfeld (Familie, Freundeskreis, Schule -- z. B. Scheidung der Eltern oder Schuelerstreit) und politische Konflikte (z. B. Territorialstreitigkeiten, Buergerkriege). Konflikte koennen auch Chancen fuer Veraenderung bieten, wenn sie konstruktiv geloest werden.',
+    difficulty: 'leicht',
+    topic: 'Arten von Konflikten',
+  },
 ];

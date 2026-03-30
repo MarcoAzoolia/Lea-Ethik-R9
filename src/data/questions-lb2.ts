@@ -549,4 +549,68 @@ export const questionsLB2: Question[] = [
     difficulty: 'schwer',
     topic: 'Existenzielle Grenzsituationen',
   },
+  {
+    id: 'lb2-q21',
+    areaId: 'lb2',
+    question:
+      'Durch welche konkreten Bereiche koennen Menschen Sinn im Leben finden?',
+    answers: [
+      {
+        id: 'a',
+        text: 'Durch Liebe, Familie, Freundschaft, einen erfuellenden Beruf, sinnvolle Taetigkeiten oder Religion.',
+        isCorrect: true,
+      },
+      {
+        id: 'b',
+        text: 'Nur durch beruflichen Erfolg und Geld.',
+        isCorrect: false,
+      },
+      {
+        id: 'c',
+        text: 'Sinn kann man nur durch Religion finden.',
+        isCorrect: false,
+      },
+      {
+        id: 'd',
+        text: 'Sinn ergibt sich automatisch, man muss nichts dafuer tun.',
+        isCorrect: false,
+      },
+    ],
+    explanation:
+      'Sinn im Leben kann aus vielen Quellen entstehen: Liebe und Partnerschaft, Familie und Freundschaft, ein erfuellender Beruf, kreative oder soziale Taetigkeiten und fuer manche auch Religion. Die Quellen sind individuell verschieden und koennen sich im Laufe des Lebens veraendern.',
+    difficulty: 'leicht',
+    topic: 'Sinnquellen',
+  },
+  {
+    id: 'lb2-q22',
+    areaId: 'lb2',
+    question:
+      'Welche unterschiedlichen Auffassungen vom Tod gibt es?',
+    answers: [
+      {
+        id: 'a',
+        text: 'Alle Menschen empfinden den Tod gleich -- als etwas Negatives.',
+        isCorrect: false,
+      },
+      {
+        id: 'b',
+        text: 'Der Tod kann als angstausloesendes Erlebnis, als Erloesung oder als natuerlicher Abschluss des Lebens gesehen werden.',
+        isCorrect: true,
+      },
+      {
+        id: 'c',
+        text: 'Der Tod wird immer als Erloesung empfunden.',
+        isCorrect: false,
+      },
+      {
+        id: 'd',
+        text: 'Ueber den Tod nachzudenken ist sinnlos, weil man nichts aendern kann.',
+        isCorrect: false,
+      },
+    ],
+    explanation:
+      'Es gibt verschiedene Auffassungen vom Tod: Er kann als Angst ausloesendes Erlebnis empfunden werden, als Erloesung (z. B. nach langem Leiden) oder als natuerlicher Abschluss des Lebens. Religioese Vorstellungen (z. B. Wiedergeburt, Paradies) praegen die Sichtweise zusaetzlich.',
+    difficulty: 'mittel',
+    topic: 'Auffassungen vom Tod',
+  },
 ];

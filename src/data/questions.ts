@@ -14,5 +14,6 @@ export function getQuestionsByArea(areaId: AreaId): Question[] {
     case 'lb1': return questionsLB1;
     case 'lb2': return questionsLB2;
     case 'lb3': return questionsLB3;
+    case 'all': return allQuestions;
   }
 }

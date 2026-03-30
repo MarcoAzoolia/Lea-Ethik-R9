@@ -1,4 +1,4 @@
-export type AreaId = 'lb1' | 'lb2' | 'lb3';
+export type AreaId = 'lb1' | 'lb2' | 'lb3' | 'all';
 export type Difficulty = 'leicht' | 'mittel' | 'schwer';
 
 export interface Answer {
@@ -68,6 +68,7 @@ export interface Achievement {
 export type Screen =
   | { type: 'welcome' }
   | { type: 'dashboard' }
+  | { type: 'learn'; areaId: AreaId }
   | { type: 'quizConfig'; areaId: AreaId }
   | { type: 'quiz'; areaId: AreaId; questionCount: number; timePerQuestion: number }
   | { type: 'result'; attempt: QuizAttempt }

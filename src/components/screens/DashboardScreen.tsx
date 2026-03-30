@@ -8,10 +8,11 @@ import { getQuestionsByArea } from '../../data/questions';
 import { GRADE_COLORS } from '../../lib/constants';
 import { clsx } from 'clsx';
 import type { AreaId } from '../../types';
-import { Flame, Zap } from 'lucide-react';
+import { Flame, Zap, BookOpen, PlayCircle, GraduationCap } from 'lucide-react';
 
 interface DashboardScreenProps {
   onSelectArea: (areaId: AreaId) => void;
+  onLearnArea: (areaId: AreaId) => void;
   getBestGrade: (areaId: AreaId) => number | null;
   getAreaAttemptCount: (areaId: AreaId) => number;
   streak: number;
@@ -22,21 +23,27 @@ const areaColorMap: Record<string, string> = {
   lb1: 'bg-lb1',
   lb2: 'bg-lb2',
   lb3: 'bg-lb3',
+  final: 'bg-final',
 };
 
 const areaBorderMap: Record<string, string> = {
   lb1: 'border-lb1/30',
   lb2: 'border-lb2/30',
   lb3: 'border-lb3/30',
+  final: 'border-final/30',
 };
 
 const areaIconBgMap: Record<string, string> = {
   lb1: 'bg-lb1/10 text-lb1',
   lb2: 'bg-lb2/10 text-lb2',
   lb3: 'bg-lb3/10 text-lb3',
+  final: 'bg-final/10 text-final',
 };
 
-export function DashboardScreen({ onSelectArea, getBestGrade, getAreaAttemptCount, streak, totalXP }: DashboardScreenProps) {
+const regularAreas = learningAreas.filter(a => a.id !== 'all');
+const finalArea = learningAreas.find(a => a.id === 'all')!;
+
+export function DashboardScreen({ onSelectArea, onLearnArea, getBestGrade, getAreaAttemptCount, streak, totalXP }: DashboardScreenProps) {
   return (
     <div className="px-4 pb-24 pt-4 max-w-lg mx-auto">
       <motion.div
@@ -45,7 +52,7 @@ export function DashboardScreen({ onSelectArea, getBestGrade, getAreaAttemptCoun
         className="mb-6"
       >
         <h2 className="text-xl font-bold">Ethik R9</h2>
-        <p className="text-sm text-text-muted mt-1">Waehle einen Lernbereich zum Ueben</p>
+        <p className="text-sm text-text-muted mt-1">Waehle einen Lernbereich zum Lernen oder Ueben</p>
       </motion.div>
 
       {/* Stats Row */}
@@ -73,7 +80,7 @@ export function DashboardScreen({ onSelectArea, getBestGrade, getAreaAttemptCoun
 
       {/* Area Cards */}
       <div className="space-y-3">
-        {learningAreas.map((area, i) => {
+        {regularAreas.map((area, i) => {
           const IconComponent = (icons as unknown as Record<string, icons.LucideIcon>)[area.icon] ?? icons.BookOpen;
           const totalQuestions = getQuestionsByArea(area.id).length;
           const attempts = getAreaAttemptCount(area.id);
@@ -122,19 +129,86 @@ export function DashboardScreen({ onSelectArea, getBestGrade, getAreaAttemptCoun
                       />
                     </div>
 
-                    <Button
-                      size="sm"
-                      className="mt-3 w-full"
-                      onClick={() => onSelectArea(area.id)}
-                    >
-                      Quiz starten
-                    </Button>
+                    <div className="flex gap-2 mt-3">
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        className="flex-1 flex items-center justify-center gap-1.5"
+                        onClick={() => onLearnArea(area.id)}
+                      >
+                        <BookOpen size={14} />
+                        Lernen
+                      </Button>
+                      <Button
+                        size="sm"
+                        className="flex-1 flex items-center justify-center gap-1.5"
+                        onClick={() => onSelectArea(area.id)}
+                      >
+                        <PlayCircle size={14} />
+                        Quiz
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Card>
             </motion.div>
           );
         })}
+
+        {/* Final Test Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 + regularAreas.length * 0.08 }}
+        >
+          <Card
+            padding="lg"
+            className={clsx('relative overflow-hidden', areaBorderMap[finalArea.color])}
+          >
+            <div className={clsx('absolute top-0 right-0 w-24 h-24 rounded-full -mr-8 -mt-8 opacity-10', areaColorMap[finalArea.color])} />
+
+            <div className="flex items-start gap-3">
+              <div className={clsx('w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0', areaIconBgMap[finalArea.color])}>
+                <GraduationCap size={20} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs text-text-muted font-medium">{finalArea.subtitle}</p>
+                    <h3 className="text-base font-bold">{finalArea.title}</h3>
+                  </div>
+                  {getBestGrade('all') !== null && (
+                    <div className={clsx('text-2xl font-extrabold', GRADE_COLORS[getBestGrade('all')!])}>
+                      {getBestGrade('all')}
+                    </div>
+                  )}
+                </div>
+                <p className="text-xs text-text-muted mt-1 leading-relaxed">{finalArea.description}</p>
+
+                <div className="mt-3">
+                  <div className="flex justify-between text-[10px] text-text-muted mb-1">
+                    <span>{getQuestionsByArea('all').length} Fragen aus allen Bereichen</span>
+                    <span>{getAreaAttemptCount('all')} Versuche</span>
+                  </div>
+                  <ProgressBar
+                    value={Math.min(getAreaAttemptCount('all'), 10)}
+                    max={10}
+                    colorClass={areaColorMap[finalArea.color]}
+                  />
+                </div>
+
+                <Button
+                  size="sm"
+                  className="mt-3 w-full flex items-center justify-center gap-1.5"
+                  onClick={() => onSelectArea('all')}
+                >
+                  <GraduationCap size={14} />
+                  Finaltest starten
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
       </div>
     </div>
   );

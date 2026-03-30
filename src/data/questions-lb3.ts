@@ -302,4 +302,68 @@ export const questionsLB3: Question[] = [
     difficulty: 'mittel',
     topic: 'Christentum - Seligpreisungen',
   },
+  {
+    id: 'lb3-q21',
+    areaId: 'lb3',
+    question:
+      'Warum ist religioser Terrorismus ein Missbrauch von Religion?',
+    answers: [
+      {
+        id: 'a',
+        text: 'Weil Terrorismus die zentralen ethischen Grundsaetze aller Religionen -- wie Naechstenliebe und Gewaltlosigkeit -- fundamental verletzt.',
+        isCorrect: true,
+      },
+      {
+        id: 'b',
+        text: 'Weil Terrorismus nur von Nicht-Glaeubigen veruebt wird.',
+        isCorrect: false,
+      },
+      {
+        id: 'c',
+        text: 'Weil Religion und Politik nichts miteinander zu tun haben.',
+        isCorrect: false,
+      },
+      {
+        id: 'd',
+        text: 'Weil heilige Schriften Gewalt immer ausdruecklich erlauben.',
+        isCorrect: false,
+      },
+    ],
+    explanation:
+      'Religioser Terrorismus missbraucht den Glauben, um Gewalt zu rechtfertigen. Alle Weltreligionen haben im Kern ethische Grundsaetze wie Naechstenliebe, Barmherzigkeit und Friedfertigkeit. Terroristische Akte widersprechen diesen Grundsaetzen und instrumentalisieren Religion fuer politische oder ideologische Ziele.',
+    difficulty: 'mittel',
+    topic: 'Terrorismus als Missbrauch von Religion',
+  },
+  {
+    id: 'lb3-q22',
+    areaId: 'lb3',
+    question:
+      'Was sind die Veden im Hinduismus?',
+    answers: [
+      {
+        id: 'a',
+        text: 'Die aeltesten und heiligsten Schriften des Hinduismus, die Hymnen, Rituale und philosophische Lehren enthalten.',
+        isCorrect: true,
+      },
+      {
+        id: 'b',
+        text: 'Die Lebensgeschichte Buddhas.',
+        isCorrect: false,
+      },
+      {
+        id: 'c',
+        text: 'Ein Gesetzbuch fuer die indische Regierung.',
+        isCorrect: false,
+      },
+      {
+        id: 'd',
+        text: 'Gebete, die nur Priester lesen duerfen.',
+        isCorrect: false,
+      },
+    ],
+    explanation:
+      'Die Veden (Sanskrit: "Wissen") sind die aeltesten religiosen Texte des Hinduismus, entstanden ca. 1500-500 v. Chr. Sie enthalten Hymnen, Opferrituale und philosophische Lehren (Upanishaden). Die ethischen Grundsaetze des Hinduismus wie Ahimsa (Gewaltlosigkeit), Dharma (kosmische Ordnung) und Karma haben hier ihren Ursprung.',
+    difficulty: 'mittel',
+    topic: 'Hinduismus - Veden',
+  },
 ];

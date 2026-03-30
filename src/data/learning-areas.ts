@@ -25,4 +25,12 @@ export const learningAreas: LearningArea[] = [
     icon: 'Globe',
     color: 'lb3',
   },
+  {
+    id: 'all',
+    title: 'Finaltest',
+    subtitle: 'Alle Lernbereiche',
+    description: 'Pruefungssimulation ueber alle drei Lernbereiche -- Friedensethik, Sinnsuche und Weltreligionen',
+    icon: 'GraduationCap',
+    color: 'final',
+  },
 ];
