@@ -24,10 +24,10 @@ export function GradeDisplay({ grade, label, percentage }: GradeDisplayProps) {
       className="flex flex-col items-center gap-3"
     >
       <div className={clsx(
-        'w-24 h-24 rounded-2xl flex items-center justify-center',
+        'w-28 h-28 rounded-3xl flex items-center justify-center relative',
         GRADE_BG_COLORS[grade],
       )}>
-        <span className={clsx('text-5xl font-extrabold', GRADE_COLORS[grade])}>
+        <span className={clsx('text-6xl font-extrabold', GRADE_COLORS[grade])}>
           {grade}
         </span>
       </div>
@@ -35,7 +35,7 @@ export function GradeDisplay({ grade, label, percentage }: GradeDisplayProps) {
         <p className={clsx('text-lg font-bold capitalize', GRADE_COLORS[grade])}>{label}</p>
         <p className="text-sm text-text-muted mt-0.5">{percentage}% richtig</p>
       </div>
-      <div className="flex gap-1">
+      <div className="flex gap-1.5">
         {Array.from({ length: 5 }).map((_, i) => (
           <motion.div
             key={i}
@@ -44,7 +44,7 @@ export function GradeDisplay({ grade, label, percentage }: GradeDisplayProps) {
             transition={{ delay: 0.3 + i * 0.1 }}
           >
             <Star
-              size={24}
+              size={26}
               className={i < stars ? 'text-warning fill-warning' : 'text-border'}
             />
           </motion.div>
