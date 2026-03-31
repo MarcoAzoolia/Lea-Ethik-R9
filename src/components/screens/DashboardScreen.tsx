@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import * as icons from 'lucide-react';
 import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
 import { ProgressBar } from '../gamification/ProgressBar';
 import { learningAreas } from '../../data/learning-areas';
 import { getQuestionsByArea } from '../../data/questions';

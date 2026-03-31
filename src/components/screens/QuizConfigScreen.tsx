@@ -137,7 +137,6 @@ export function QuizConfigScreen({ areaId, onStart }: QuizConfigScreenProps) {
           </div>
           <div className="grid grid-cols-4 gap-2">
             {TIME_PER_QUESTION_OPTIONS.map(t => {
-              const isRecommended = t === 30;
               return (
                 <button
                   key={t}
