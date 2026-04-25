@@ -19,11 +19,15 @@ export function useTimer({ durationSeconds, onWarning, onCritical, onExpire }: U
   const onCriticalRef = useRef(onCritical);
   const onExpireRef = useRef(onExpire);
 
-  onWarningRef.current = onWarning;
-  onCriticalRef.current = onCritical;
-  onExpireRef.current = onExpire;
+  useEffect(() => {
+    onWarningRef.current = onWarning;
+    onCriticalRef.current = onCritical;
+    onExpireRef.current = onExpire;
+  }, [onWarning, onCritical, onExpire]);
 
   const fraction = remaining / durationSeconds;
+
+  const tickFnRef = useRef<() => void>(() => {});
 
   const tick = useCallback(() => {
     const elapsed = (performance.now() - startTimeRef.current) / 1000;
@@ -47,8 +51,12 @@ export function useTimer({ durationSeconds, onWarning, onCritical, onExpire }: U
       return;
     }
 
-    rafRef.current = requestAnimationFrame(tick);
+    rafRef.current = requestAnimationFrame(() => tickFnRef.current());
   }, [durationSeconds]);
+
+  useEffect(() => {
+    tickFnRef.current = tick;
+  }, [tick]);
 
   const start = useCallback(() => {
     warningFiredRef.current = false;
@@ -56,8 +64,8 @@ export function useTimer({ durationSeconds, onWarning, onCritical, onExpire }: U
     startTimeRef.current = performance.now();
     setRemaining(durationSeconds);
     setIsRunning(true);
-    rafRef.current = requestAnimationFrame(tick);
-  }, [durationSeconds, tick]);
+    rafRef.current = requestAnimationFrame(() => tickFnRef.current());
+  }, [durationSeconds]);
 
   const stop = useCallback(() => {
     cancelAnimationFrame(rafRef.current);
